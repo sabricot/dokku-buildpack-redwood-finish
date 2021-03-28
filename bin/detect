@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# this pack is valid for RedwoodJS apps that have been initialized
+if [ -f $1/redwood.toml ]; then
+  if [ -f $1/Procfile ] && [ -f $1/index.js ]; then
+    echo "RedwoodJS"
+    exit 0
+  else
+    echo "This looks like an uninitialized RedwoodJS application."
+    echo "Run the dokku-buildpack-redwood-init buildpack first"
+    exit 1
+else
+  exit 1
+fi

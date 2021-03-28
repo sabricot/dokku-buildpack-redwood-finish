@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
+#!/bin/sh
+
+echo "-----> Installing packages"
+# move @redwoodjs/core from devDep to regular dep
+cd $1 && yarn remove -W @redwoodjs/core && yarn add -W @redwoodjs/core
+cd $1 && yarn add -W pm2 
+cd $1 && yarn workspace api add @redwoodjs/api-server
+
+echo "-----> Building"
+cd $1 && yarn rw prisma migrate deploy && yarn rw build
