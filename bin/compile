@@ -5,5 +5,12 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
+echo "-----> Preparing for install"
+cd $1 && yarn remove -W @redwoodjs/core # Will reinstall as non devDep
+
+echo "-----> Installing packages"
+cd $1 && yarn workspace api add @redwoodjs/api-server
+cd $1 && yarn add -W @redwoodjs/core pm2
+
 echo "-----> Building"
 cd $1 && yarn rw prisma migrate deploy && yarn rw build
