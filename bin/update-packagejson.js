@@ -13,7 +13,7 @@ if (coreVersion !== undefined && coreVersion.length > 0) {
 }
 
 if (!package.dependencies.pm2) {
-  package.dependencie.pm2 = "^4.5.5"
+  package.dependencies.pm2 = "^4.5.5"
 }
 
 fs.writeFileSync(process.argv[2], JSON.stringify(package, null, 2))
