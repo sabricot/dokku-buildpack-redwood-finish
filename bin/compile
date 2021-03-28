@@ -5,13 +5,14 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
-#!/bin/sh
+echo "-----> Preparing for install"
+rm $1/package.json
+mv $1/_package.json $1/package.json
+node bin/update-packagejson $1/package.json
+node bin/packagejson-add-api-server $1/api/package.json
 
 echo "-----> Installing packages"
-# move @redwoodjs/core from devDep to regular dep
-cd $1 && yarn remove -W @redwoodjs/core && yarn add -W @redwoodjs/core
-cd $1 && yarn add -W pm2 
-cd $1 && yarn workspace api add @redwoodjs/api-server
+cd $1 && yarn install
 
 echo "-----> Building"
 cd $1 && yarn rw prisma migrate deploy && yarn rw build
