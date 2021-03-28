@@ -9,6 +9,7 @@ if [ -f $1/redwood.toml ]; then
     echo "This looks like an uninitialized RedwoodJS application."
     echo "Run the dokku-buildpack-redwood-init buildpack first"
     exit 1
+  fi
 else
   exit 1
 fi
