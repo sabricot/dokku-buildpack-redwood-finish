@@ -5,14 +5,5 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
-echo "-----> Preparing for install"
-rm $1/package.json
-mv $1/_package.json $1/package.json
-node bin/update-packagejson $1/package.json
-node bin/packagejson-add-api-server $1/api/package.json
-
-echo "-----> Installing packages"
-cd $1 && yarn install
-
 echo "-----> Building"
 cd $1 && yarn rw prisma migrate deploy && yarn rw build
