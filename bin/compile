@@ -14,4 +14,10 @@ echo "-----> Installing packages"
 cd $BUILD_DIR && yarn add -W pm2
 
 echo "-----> Building"
-cd $BUILD_DIR && yarn rw prisma migrate deploy && yarn rw build
+RW_BUILD_COMMAND="$(cat $ENV_DIR/RW_BUILD_COMMAND)"
+echo "       RW_BUILD_COMMAND=$RW_BUILD_COMMAND"
+if [ ! -z "$RW_BUILD_COMMAND" ]; then
+    cd $BUILD_DIR && $RW_BUILD_COMMAND
+else
+    cd $BUILD_DIR && yarn rw prisma migrate deploy && yarn rw build
+fi
