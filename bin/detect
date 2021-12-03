@@ -1,8 +1,12 @@
 #!/bin/sh
 
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+
 # this pack is valid for RedwoodJS apps that have been initialized
-if [ -f $1/redwood.toml ]; then
-  if [ -f $1/Procfile ] && [ -f $1/index.js ]; then
+if [ -f $BUILD_DIR/redwood.toml ]; then
+  if [ -f $BUILD_DIR/Procfile ] && [ -f $BUILD_DIR/index.js ]; then
     echo "RedwoodJS"
     exit 0
   else
