@@ -11,7 +11,7 @@ ENV_DIR=${3:-}
 echo "-----> Installing packages"
 # cd $BUILD_DIR && yarn workspace api add @redwoodjs/api-server
 # cd $BUILD_DIR && yarn add -W @redwoodjs/core pm2
-# cd $BUILD_DIR && yarn add -W pm2
+cd $BUILD_DIR && yarn add -W pm2
 
 echo "-----> Building"
 
