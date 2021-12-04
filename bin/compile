@@ -11,13 +11,19 @@ ENV_DIR=${3:-}
 echo "-----> Installing packages"
 # cd $BUILD_DIR && yarn workspace api add @redwoodjs/api-server
 # cd $BUILD_DIR && yarn add -W @redwoodjs/core pm2
-cd $BUILD_DIR && yarn add -W pm2
+# cd $BUILD_DIR && yarn add -W pm2
 
 echo "-----> Building"
-RW_BUILD_COMMAND="$(cat $ENV_DIR/RW_BUILD_COMMAND)"
+
+if [ -f "$ENV_DIR/RW_BUILD_COMMAND" ]; then
+    RW_BUILD_COMMAND="$(cat $ENV_DIR/RW_BUILD_COMMAND)"
+fi
+
 echo "       RW_BUILD_COMMAND=$RW_BUILD_COMMAND"
+
 if [ ! -z "$RW_BUILD_COMMAND" ]; then
     cd $BUILD_DIR && $RW_BUILD_COMMAND
 else
+    echo "       Using default build command"
     cd $BUILD_DIR && yarn rw prisma migrate deploy && yarn rw build
 fi
